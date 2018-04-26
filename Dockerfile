@@ -37,7 +37,11 @@ RUN wget http://apache.javapipe.com/hadoop/core/hadoop-${HADOOP_VERSION}/hadoop-
 # Create temp folder for hdfs
 RUN mkdir -p /var/local/hadoop \
     && chown -R hduser:hadoop /var/local/hadoop \
-    && chmod 755 -R /var/local/hadoop
+    && chmod 755 -R /var/local/hadoop \
+    && mkdir -p /var/local/hdfs/data \
+    && mkdir -p /var/local/hdfs/name \
+    && chown -R hduser:hadoop /var/local/hdfs \
+    && chmod 755 -R /var/local/hdfs 
 
 USER hduser
 
@@ -47,7 +51,7 @@ RUN echo "export HADOOP_HOME=/usr/local/hadoop"  >> $HOME/.bashrc \
     && echo "export HADOOP_OPTS=-Djava.net.preferIPv4Stack=true" >> /usr/local/hadoop/etc/hadoop/hadoop-env.sh
 
 # Copy configuration files
-ADD config/core-site.xml config/mapred-site.xml config/hdfs-site.xml /usr/local/hadoop/etc/hadoop/
+ADD config/core-site.xml config/mapred-site.xml config/hdfs-site.xml config/yarn-site.xml /usr/local/hadoop/etc/hadoop/
 
 
 WORKDIR /usr/local/hadoop
@@ -57,5 +61,5 @@ RUN /usr/local/hadoop/bin/hadoop namenode -format
 USER root
 ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-EXPOSE 22 9000 9001 50070 50030
+EXPOSE 22 8088 9870 9001 50070 50030
 ENTRYPOINT ["/usr/bin/supervisord"]

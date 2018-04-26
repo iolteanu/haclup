@@ -19,4 +19,16 @@
     <name>dfs.replication</name>
     <value>1</value>
   </property>
+  <property>
+    <name>dfs.name.dir</name>
+    <value>/var/local/hdfs/name</value>
+ </property>
+ <property>
+    <name>dfs.data.dir</name>
+    <value>/var/local/hdfs/data</value>
+ </property>
+ <property>
+    <name>dfs.permissions</name>
+    <value>false</value>
+ </property>
 </configuration>

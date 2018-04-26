@@ -16,7 +16,7 @@
 <!-- Put site-specific property overrides in this file. -->
 <configuration>
   <property>
-    <name>mapred.job.tracker</name>
-    <value>localhost:9001</value>
-  </property>
+    <name>mapreduce.framework.name</name>
+    <value>yarn</value>
+ </property>
 </configuration>
